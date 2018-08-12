@@ -1,0 +1,18 @@
+spring:
+#  数据库配置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    userName : root
+    password : satomi/317
+    url : jdbc:mysql://127.0.0.1/sell?characterEncoding=utf-8&useSSL=false
+  jpa:
+    show-sql : true
+    open-in-view: true
+  jackson:
+    default-property-inclusion: non_null
+
+server:
+  servlet:
+    context-path:
+      /sell
+

@@ -1,0 +1,8 @@
+2018-08-09 15:55:21,172 -- Column 'product_name' cannot be null
+2018-08-09 15:55:21,174 -- HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2018-08-09 15:57:17,063 -- Column 'product_name' cannot be null
+2018-08-09 15:57:17,066 -- HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2018-08-09 16:00:33,673 -- Column 'product_name' cannot be null
+2018-08-09 16:00:33,677 -- HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2018-08-09 16:06:26,273 -- Column 'product_name' cannot be null
+2018-08-09 16:06:26,281 -- HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]

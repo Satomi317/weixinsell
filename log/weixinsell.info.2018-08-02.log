@@ -1,0 +1,13 @@
+Starting LogTest on LAPTOP-0ECG6CSM with PID 23604 (started by 38134 in D:\programming\EE)
+No active profile set, falling back to default profiles: default
+Refreshing org.springframework.web.context.support.GenericWebApplicationContext@cc43f62: startup date [Thu Aug 02 18:49:49 CST 2018]; root of context hierarchy
+Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+Looking for @ControllerAdvice: org.springframework.web.context.support.GenericWebApplicationContext@cc43f62: startup date [Thu Aug 02 18:49:49 CST 2018]; root of context hierarchy
+Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+Started LogTest in 2.362 seconds (JVM running for 3.283)
+name:yuisama,password:123456
+info...
+Closing org.springframework.web.context.support.GenericWebApplicationContext@cc43f62: startup date [Thu Aug 02 18:49:49 CST 2018]; root of context hierarchy
