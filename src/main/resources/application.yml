@@ -16,3 +16,10 @@ server:
     context-path:
       /sell
 
+wechat:
+  mpAppId: wxcbac1a7db0ec3899
+  mpAppSecret: b89562aced06608763c09615d0264a8d
+
+project-url:
+  wechatMpAuthorize: http://yuisama.s1.natapp.cc
+
