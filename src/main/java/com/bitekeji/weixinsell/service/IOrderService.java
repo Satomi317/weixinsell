@@ -4,6 +4,8 @@ import com.bitekeji.weixinsell.dto.OrderDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * @author yuisama
  * @date 2018/8/9
@@ -51,4 +53,11 @@ public interface IOrderService {
      * @return
      */
     OrderDTO payOrder(OrderDTO orderDTO);
+
+    /**
+     * 查询所有订单(卖家端)
+     * @param pageable
+     * @return
+     */
+    Page<OrderDTO> findList(Pageable pageable);
 }

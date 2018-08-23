@@ -3,10 +3,14 @@ package com.bitekeji.weixinsell.service.impl;
 import com.bitekeji.weixinsell.dto.CartDTO;
 import com.bitekeji.weixinsell.entity.ProductInfo;
 import com.bitekeji.weixinsell.enums.ExceptionEnum;
+import com.bitekeji.weixinsell.enums.ProductStatusEnum;
+import com.bitekeji.weixinsell.exception.OrderException;
 import com.bitekeji.weixinsell.exception.ProductNotFoundException;
+import com.bitekeji.weixinsell.exception.ProductStatusError;
 import com.bitekeji.weixinsell.exception.ProductStockErrorException;
 import com.bitekeji.weixinsell.repository.ProductInfoReposity;
 import com.bitekeji.weixinsell.service.IProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +25,7 @@ import java.util.Optional;
  * @date 2018/8/3 17:25
  */
 @Service
+@Slf4j
 public class ProductInfoServiceImpl implements IProductService {
     @Autowired
     private ProductInfoReposity reposity;
@@ -79,4 +84,37 @@ public class ProductInfoServiceImpl implements IProductService {
             reposity.save(productInfo.get());
         }
     }
+
+    @Override
+    @Transactional
+    public ProductInfo onSale(String productId) {
+        Optional<ProductInfo> productInfo = reposity.findById(productId);
+        if (productInfo == null) {
+            throw new ProductNotFoundException(ExceptionEnum.PRODUCT_NOT_EXIST);
+        }
+        if (productInfo.get().getProductStatus() == ProductStatusEnum.UP.getCode()){
+            log.error("商品已为上架状态，无须再次上架..");
+            throw new ProductStatusError(ExceptionEnum.PRODUCT_STATUS_ERROR);
+        }
+        log.info("商品上架ing..，商品Id为{}",productId);
+        productInfo.get().setProductStatus(ProductStatusEnum.UP.getCode());
+        return reposity.save(productInfo.get());
+    }
+
+    @Override
+    @Transactional
+    public ProductInfo offSale(String productId) {
+        Optional<ProductInfo> productInfo = reposity.findById(productId);
+        if (productInfo == null) {
+            throw new ProductNotFoundException(ExceptionEnum.PRODUCT_NOT_EXIST);
+        }
+        if (productInfo.get().getProductStatus() == ProductStatusEnum.DOWN.getCode()){
+            log.error("商品已为下架状态，无须再次下架..");
+            throw new ProductStatusError(ExceptionEnum.PRODUCT_STATUS_ERROR);
+        }
+        log.info("商品下架中..，商品Id为{}",productId);
+        productInfo.get().setProductStatus(ProductStatusEnum.DOWN.getCode());
+        return reposity.save(productInfo.get());
+    }
+
 }

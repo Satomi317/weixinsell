@@ -23,4 +23,6 @@ public interface IProductService {
     ProductInfo save(ProductInfo productInfo);
     void increaseStock(List<CartDTO> cartDTOList);
     void decreaseStock(List<CartDTO> cartDTOList);
+    ProductInfo onSale(String productId);
+    ProductInfo offSale(String productId);
 }

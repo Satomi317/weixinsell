@@ -13,6 +13,6 @@ public class ProductStockErrorException extends RuntimeException {
 
     public ProductStockErrorException(ExceptionEnum exceptionEnum) {
         super(exceptionEnum.getMsg());
-        this.code = code;
+        this.code = exceptionEnum.getCode();
     }
 }

@@ -1,7 +1,11 @@
 package com.bitekeji.weixinsell.dto;
 
 import com.bitekeji.weixinsell.entity.OrderDetail;
+import com.bitekeji.weixinsell.enums.OrderStatusEnum;
+import com.bitekeji.weixinsell.enums.PayStatusEnum;
 import com.bitekeji.weixinsell.util.Date2LongUtil;
+import com.bitekeji.weixinsell.util.EnumUtil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
@@ -29,4 +33,12 @@ public class OrderDTO {
     @JsonSerialize(using = Date2LongUtil.class)
     private Date updateTime;
     List<OrderDetail> orderDetailList;
+    @JsonIgnore
+    public OrderStatusEnum getOrderStatusEnum() {
+        return EnumUtil.getEnumDataByCode(orderStatus,OrderStatusEnum.class);
+    }
+    @JsonIgnore
+    public PayStatusEnum getPayStatusEnum() {
+        return EnumUtil.getEnumDataByCode(payStatus,PayStatusEnum.class);
+    }
 }

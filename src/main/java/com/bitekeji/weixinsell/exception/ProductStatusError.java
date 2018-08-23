@@ -5,13 +5,13 @@ import lombok.Getter;
 
 /**
  * @author yuisama
- * @date 2018/8/9
+ * @date 2018/8/21 11:08
  */
 @Getter
-public class ProductNotFoundException extends RuntimeException {
+public class ProductStatusError extends RuntimeException{
     private Integer code;
 
-    public ProductNotFoundException(ExceptionEnum exceptionEnum) {
+    public ProductStatusError(ExceptionEnum exceptionEnum) {
         super(exceptionEnum.getMsg());
         this.code = exceptionEnum.getCode();
     }

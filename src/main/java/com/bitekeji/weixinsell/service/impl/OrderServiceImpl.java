@@ -13,6 +13,7 @@ import com.bitekeji.weixinsell.repository.OrderMasterReposity;
 import com.bitekeji.weixinsell.service.IOrderService;
 import com.bitekeji.weixinsell.service.IProductService;
 import com.bitekeji.weixinsell.util.GenerateKeyUtil;
+import com.bitekeji.weixinsell.util.OrderMaster2OrderDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,15 +107,10 @@ public class OrderServiceImpl implements IOrderService {
         Page<OrderMaster> orderMasterPage =
                 orderMasterReposity.findByBuyerOpenid(buyerOpenid,pageable);
         // 将OrderMaster转为OrderDTO
-        List<OrderDTO> orderDTOList = new ArrayList<>();
-        for (OrderMaster orderMaster : orderMasterPage.getContent()) {
-            OrderDTO orderDTO = new OrderDTO();
-            BeanUtils.copyProperties(orderMaster,orderDTO);
-            orderDTOList.add(orderDTO);
-        }
+        List<OrderDTO> orderDTOList =
+                OrderMaster2OrderDTO.convert(orderMasterPage.getContent());
         Page<OrderDTO> orderDTOPage =
-                new PageImpl<OrderDTO>(orderDTOList,pageable,orderMasterPage.getTotalElements());
-
+                new PageImpl<>(orderDTOList,pageable,orderMasterPage.getTotalElements());
         return orderDTOPage;
     }
 
@@ -197,5 +193,14 @@ public class OrderServiceImpl implements IOrderService {
             throw new OrderException(ExceptionEnum.ORDER_UPDATE_FAIL);
         }
         return orderDTO;
+    }
+
+    @Override
+    public Page<OrderDTO> findList(Pageable pageable) {
+        Page<OrderMaster> orderMasterPage =
+                orderMasterReposity.findAll(pageable);
+        List<OrderDTO> orderDTOList =
+                OrderMaster2OrderDTO.convert(orderMasterPage.getContent());
+        return new PageImpl<>(orderDTOList,pageable,orderMasterPage.getTotalElements());
     }
 }
