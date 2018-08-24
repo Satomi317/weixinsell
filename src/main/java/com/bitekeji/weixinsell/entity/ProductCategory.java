@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import java.util.Date;
 
 /**
+ * 买家类目实体类
  * @author yuisama
  * @date 2018/8/3 12:41
  */
