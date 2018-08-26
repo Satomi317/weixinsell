@@ -12,6 +12,7 @@ import com.bitekeji.weixinsell.repository.OrderDetailReposity;
 import com.bitekeji.weixinsell.repository.OrderMasterReposity;
 import com.bitekeji.weixinsell.service.IOrderService;
 import com.bitekeji.weixinsell.service.IProductService;
+import com.bitekeji.weixinsell.service.IWechatPushService;
 import com.bitekeji.weixinsell.util.GenerateKeyUtil;
 import com.bitekeji.weixinsell.util.OrderMaster2OrderDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +45,8 @@ public class OrderServiceImpl implements IOrderService {
     private OrderDetailReposity orderDetailReposity;
     @Autowired
     private OrderMasterReposity orderMasterReposity;
+    @Autowired
+    private IWechatPushService wechatPushService;
     @Override
     @Transactional
     public OrderDTO create(OrderDTO orderDTO) {
@@ -72,9 +75,9 @@ public class OrderServiceImpl implements IOrderService {
         // 3.写入订单数据库(OrderMaster、OrderDetail)
         OrderMaster orderMaster = new OrderMaster();
         orderDTO.setOrderId(orderId);
+        orderDTO.setOrderStatus(0);
+        orderDTO.setOrderAmount(orderAmount);
         BeanUtils.copyProperties(orderDTO,orderMaster);
-        orderMaster.setOrderAmount(orderAmount);
-        orderMaster.setOrderStatus(0);
         orderMaster.setPayStatus(0);
         orderMasterReposity.save(orderMaster);
         // 4.扣库存
@@ -83,6 +86,8 @@ public class OrderServiceImpl implements IOrderService {
                 .map(e -> new CartDTO(e.getProductId(),e.getProductQuantity())
                 ).collect(Collectors.toList());
         productService.decreaseStock(cartDTOList);
+        // 推送微信消息
+        wechatPushService.pushOrder(orderDTO);
         return orderDTO;
     }
 
@@ -146,6 +151,8 @@ public class OrderServiceImpl implements IOrderService {
         if (orderDTO.getPayStatus().equals(1)) {
             //TODO
         }
+        // 推送微信消息
+        wechatPushService.pushOrder(orderDTO);
         return orderDTO;
     }
 
@@ -167,6 +174,8 @@ public class OrderServiceImpl implements IOrderService {
             log.error("【完结订单】订单更新失败,orderMaster={}",orderMaster);
             throw new OrderException(ExceptionEnum.ORDER_UPDATE_FAIL);
         }
+        // 推送微信消息
+        wechatPushService.pushOrder(orderDTO);
         return orderDTO;
     }
 

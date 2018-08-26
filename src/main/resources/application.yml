@@ -22,7 +22,10 @@ server:
 wechat:
   mpAppId: wxcbac1a7db0ec3899
   mpAppSecret: b89562aced06608763c09615d0264a8d
+  templateId:
+    7bxmTXsB7GDksa2yiTQzKY2-zHG6-SYyFYDBkDQT69w
 
+#后台服务内网穿透地址
 project-url:
   wechatMpAuthorize: http://yuisamasell.natapp1.cc
 

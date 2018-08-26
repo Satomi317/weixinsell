@@ -112,7 +112,7 @@ public class BuyerOrderController {
      * @param bindingResult
      * @return
      */
-    @GetMapping("/cancle")
+    @PostMapping("/cancel")
     public ResultVO<OrderDTO> cancle(@Valid OrderDetailForm orderDetailForm,
                                      BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

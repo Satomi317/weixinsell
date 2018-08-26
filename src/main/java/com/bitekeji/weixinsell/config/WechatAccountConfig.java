@@ -20,4 +20,8 @@ public class WechatAccountConfig {
      * 微信公众号appSecret
      */
     private String mpAppSecret;
+    /**
+     * 模板消息Id
+     */
+    private String templateId;
 }
