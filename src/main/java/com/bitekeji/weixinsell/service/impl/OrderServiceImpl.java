@@ -13,6 +13,7 @@ import com.bitekeji.weixinsell.repository.OrderMasterReposity;
 import com.bitekeji.weixinsell.service.IOrderService;
 import com.bitekeji.weixinsell.service.IProductService;
 import com.bitekeji.weixinsell.service.IWechatPushService;
+import com.bitekeji.weixinsell.service.WebSocket;
 import com.bitekeji.weixinsell.util.GenerateKeyUtil;
 import com.bitekeji.weixinsell.util.OrderMaster2OrderDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +48,8 @@ public class OrderServiceImpl implements IOrderService {
     private OrderMasterReposity orderMasterReposity;
     @Autowired
     private IWechatPushService wechatPushService;
+    @Autowired
+    private WebSocket webSocket;
     @Override
     @Transactional
     public OrderDTO create(OrderDTO orderDTO) {
@@ -88,6 +91,8 @@ public class OrderServiceImpl implements IOrderService {
         productService.decreaseStock(cartDTOList);
         // 推送微信消息
         wechatPushService.pushOrder(orderDTO);
+        // 推送websocket
+        webSocket.sendMessage(orderDTO.getOrderId());
         return orderDTO;
     }
 

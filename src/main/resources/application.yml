@@ -2,16 +2,16 @@ spring:
 #  数据库配置
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    userName : root
-    password : satomi/317
-    url : jdbc:mysql://127.0.0.1/sell?characterEncoding=utf-8&useSSL=false
+    userName : yuisama
+    password : Satomi317
+    url : jdbc:mysql://rm-2zea7nkus49j6get0o.mysql.rds.aliyuncs.com:3306/sell?characterEncoding=utf-8&useSSL=false
   jpa:
     show-sql : true
     open-in-view: true
   jackson:
     default-property-inclusion: non_null
   redis:
-    host: 127.0.0.1
+    host: 118.24.113.28
     port: 6379
 
 server:
